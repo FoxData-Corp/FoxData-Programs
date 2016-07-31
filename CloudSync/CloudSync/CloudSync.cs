@@ -90,6 +90,10 @@ namespace CloudSync
                 }
                 else if (sucessfail == "true")
                 {
+                    string syncPath;
+
+                    string syncServer;
+
                     finalizedPassword = passwordField.Text;
 
                     finalizedUsername = usernameField.Text;
@@ -106,19 +110,27 @@ namespace CloudSync
 
                     Label desc = new Label();
 
-                    desc.Text = "Choose action";
+                    desc.Text = "Hello, " + finalizedUsername;
 
                     desc.Location = new Point(2, 20);
 
+                    Button chooseSyncPath = new Button();
+
+                    chooseSyncPath.Text = "Set Sync Path";
+
+                    chooseSyncPath.Location = new Point(2, 50);
+
+                    chooseSyncPath.AutoSize = true;
+
+                    chooseSyncPath.Click += (senderSync, eSync) =>
+                    {
+                        FolderBrowserDialog syncPathSelector = new FolderBrowserDialog();
+
+                        DialogResult sp = syncPathSelector.ShowDialog();
+                    };
+
                     this.Controls.Add(desc);
-
-                    BackgroundWorker syncProcess = new BackgroundWorker();
-
-                    syncProcess.WorkerReportsProgress = true;
-
-                    syncProcess.WorkerSupportsCancellation = true;
-
-
+                    this.Controls.Add(chooseSyncPath);
                 }
                 else
                 {
