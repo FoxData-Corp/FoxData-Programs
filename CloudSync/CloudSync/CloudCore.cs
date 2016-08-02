@@ -14,12 +14,20 @@ namespace CloudSync
     {
         private string url = "https://google.com/";
 
-        public string login(string username, string password)
+        private bool loggedIn = false;
+
+        private string err = null;
+
+        private string usernameFinal = null;
+
+        private string passwordFinal = null;
+
+        private object get(string finalUrl)
         {
             try
             {
                 // Create a request for the URL. 
-                WebRequest request = WebRequest.Create(url);
+                WebRequest request = WebRequest.Create(finalUrl);
                 // If required by the server, set the credentials.
                 request.Credentials = CredentialCache.DefaultCredentials;
                 // Get the response.
@@ -42,12 +50,28 @@ namespace CloudSync
             }
             catch (WebException e)
             {
-                return "fail";
+                return false;
             }
         }
-        public void notify(string caption)
-        {
 
+        public cloudCore(object username, object password)
+        {
+            object loginStatus = get(url + "?username=" + username + "&password=" + password);
+
+            if((string)loginStatus == "true" && loggedIn == false)
+            {
+                usernameFinal = username.ToString();
+
+                passwordFinal = password.ToString();
+
+                loggedIn = true;
+
+                /*} else if((bool)loginStatus == false) --//Future use//--
+                {
+                    err = 
+                }
+                */
+            }
         }
     }
 }

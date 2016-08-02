@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,9 +17,55 @@ namespace CloudSync
 {
     public partial class CloudSync : Form
     {
-        public CloudSync()
+        public bool loader()
         {
             InitializeComponent();
+
+            this.Width = 270;
+
+            this.Height = 300;
+
+            this.FormBorderStyle = FormBorderStyle.None;
+
+            this.BackColor = Color.FromArgb(30, 30, 30);
+
+            this.CenterToScreen();
+
+            Stream s = this.GetType().Assembly.GetManifestResourceStream("CloudSync.cloud.png");
+
+            Bitmap bmp = new Bitmap(s);
+
+            s.Close();
+
+            PictureBox logo = new PictureBox();
+
+            logo.Image = bmp;
+
+            this.Controls.Add(logo);
+
+            return true;
+        }
+
+        public string[] login()
+        {
+            string[] credentials = {};
+
+            return credentials;
+        }
+        public CloudSync()
+        {
+            bool loaderReturn = loader();
+            
+            if(loaderReturn == true)
+            {
+                
+            }
+        }
+    }
+}
+
+
+/* OLD CODE
 
             string finalizedUsername;
 
@@ -157,6 +206,4 @@ namespace CloudSync
             this.Controls.Add(passwordField);
 
             this.Controls.Add(submitButton);
-        }
-    }
-}
+            */
